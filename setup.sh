@@ -38,6 +38,7 @@ InstallPackageByPackMng ${PACKAGE_MNG} neovim
 InstallPackageByPackMng ${PACKAGE_MNG} shfmt
 InstallPackageByPackMng ${PACKAGE_MNG} gcc
 InstallPackageByPackMng ${PACKAGE_MNG} clang
+InstallPackageByPackMng ${PACKAGE_MNG} clang-format
 InstallPackageByPackMng ${PACKAGE_MNG} gdb
 InstallPackageByPackMng ${PACKAGE_MNG} cmake
 InstallPackageByPackMng ${PACKAGE_MNG} tmux
@@ -50,4 +51,6 @@ InstallPackageByPackMng ${PACKAGE_MNG} python3
 InstallPackageByPackMng ${PACKAGE_MNG} python3-pip
 InstallPackageByPackMng ${PACKAGE_MNG} docker
 InstallPackageByPackMng ${PACKAGE_MNG} docker-compose
+InstallPackageByPackMng ${PACKAGE_MNG} net-tools
 
+# end
