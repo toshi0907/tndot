@@ -1,3 +1,5 @@
+export BASHRC_STARTUP_PWD=$(pwd)
+
 PATH_CONFIG_BASHRC="${HOME}/.config/bashrc"
 
 if [ ! -d $PATH_CONFIG_BASHRC ]; then
@@ -12,4 +14,5 @@ for bashrc_path_name in $(ls ${PATH_CONFIG_BASHRC}/bashrc*); do
   source ${bashrc_path_name}
 done
 
-
+cd ${BASHRC_STARTUP_PWD}
+export BASHRC_STARTUP_PWD=
