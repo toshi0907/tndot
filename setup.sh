@@ -2,6 +2,11 @@
 
 PACKAGE_MNG=""
 
+LINUX_DISTRIBUTION=$(cat /etc/os-release | grep -E "^ID=" | sed -e "s/ID=//g")
+echo
+echo $LINUX_DISTRIBUTION
+echo
+
 cat /etc/os-release | grep -E "^ID=" | grep ubuntu
 if [ $? -eq 0 ]; then
   PACKAGE_MNG="apt-get"
