@@ -173,6 +173,21 @@ done
 
 ######################################################
 
+echo
+echo "================="
+echo "=== SETUP ETC ==="
+echo "================="
+echo
+
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.ctags ~/ ./
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.editorconfig ~/ ./
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.gitconfig ~/ ./
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.tigrc ~/ ./
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.tmux.conf ~/ ./
+
+######################################################
+
+
 cd ${PWD_SCRIPT}
 
 # end

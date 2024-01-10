@@ -1,0 +1,147 @@
+# main view の左端にコミットIDを表示する
+# set main-view = id date author commit-title:graph=true,refs=true
+set main-view = id author:email,width=4 commit-title:graph=true,refs=true
+
+# タブサイズ
+set tab-size = 2
+
+# 検索時に大文字小文字を無視する (default: false)
+set ignore-case = true
+
+# diff-highlightでの表示を有効化
+set diff-highlight = true
+
+# set main-view-date = custom
+# set main-view-date-format = "%Y/%m/%d %H:%M %a"
+
+# diffのオプション
+# set diff-options = -b -U10
+
+# %(head)          The currently viewed head ID. Defaults to HEAD
+# %(commit)        The currently selected commit ID.
+# %(blob)          The currently selected blob ID.
+# %(branch)        The currently selected branch name.
+# %(remote)        The currently selected remote name. For remote branches %(branch) will contain the branch name.
+# %(tag)           The currently selected tag name.
+# %(stash)         The currently selected stash name.
+# %(directory)     The current directory path in the tree view or "." if undefined.
+# %(file)          The currently selected file.
+# %(lineno)        The currently selected line number. Defaults to 0.
+# %(ref)           The reference given to blame or HEAD if undefined.
+# %(revargs)       The revision arguments passed on the command line.
+# %(fileargs)      The file arguments passed on the command line.
+# %(cmdlineargs)   All other options passed on the command line.
+# %(diffargs)      Options from diff-options or TIG_DIFF_OPTS used used by the diff view.
+# %(blameargs)     Options from blame-options used by the blame view.
+# %(logargs)       Options from log-options used by the log view.
+# %(mainargs)      Options from main-options used by the main view.
+# %(prompt)        Prompt for the argument value. Optionally specify a custom prompt using "%(prompt Enter branch name: )"
+#
+# External user-defined command
+# !   Run the command in the foreground with output shown.
+# @   Run the command in the background with no output.
+# ?   Prompt the user before executing the command.
+# <   Exit Tig after executing the command.
+
+# <Space>のマッピング削除 => leaderとして使用のため
+bind generic <Space> none
+bind main    <Space> none
+
+# { / } で単位ごとの移動
+#
+# bind diff    n      :/^@@
+# bind diff    p      :?^@@
+bind diff    `      :/^diff --(git|cc)
+bind diff    }      :/^@@
+bind diff    {      :?^@@
+
+# bind stage   n      :/^@@
+# bind stage   p      :?^@@
+bind stage   `      :/^diff --(git|cc)
+bind stage   }      :/^@@
+bind stage   {      :?^@@
+
+# bind pager   n      :/^@@
+# bind pager   p      :?^@@
+bind pager   `      :/^diff --(git|cc)
+bind pager   }      :/^@@
+bind pager   {      :?^@@
+
+# T で refs のトグル
+bind generic T      :toggle commit-title-refs
+bind main    T      :toggle commit-title-refs
+
+# C で commit (refs での C は checkout, main での C は cherry-pick だが上書きする)
+bind generic C      !git commit
+bind main    C      !git commit
+
+# F で fixup commit
+bind generic F      !?@git commit --fixup=%(commit)
+bind main    F      !?@git commit --fixup=%(commit)
+bind blame   F      !?@git commit --fixup=%(ref)
+
+# R で 選択中のコミットからのrebase -i
+bind generic R      !?git rebase -i %(commit) --keep-empty --ignore-date
+bind main    R      !?git rebase -i %(commit) --keep-empty --ignore-date
+# bind generic R      !?git rebase -i %(commit) --keep-empty
+# bind main    R      !?git rebase -i %(commit) --keep-empty
+
+# O で 選択中のコミットをoriginへプッシュ
+bind generic O      !git hashpush origin %(commit)
+bind main    O      !git hashpush origin %(commit)
+
+# L で 選択中のコミットをlocalへプッシュ
+bind generic L      !git hashpush local %(commit) %(branch)
+bind main    L      !git hashpush local %(commit) %(branch)
+
+# P で 選択中のコミットをcherry-pick
+bind generic P      !git cherry-pick %(commit)
+bind main    P      !git cherry-pick %(commit)
+
+# Ctrl-r で 選択中のコミットをrevert
+bind generic <Ctrl-r>      !?@git revert %(commit)
+bind main    <Ctrl-r>      !?@git revert %(commit)
+
+# A で git commit --amend
+bind generic A      !?git commit --amend --allow-empty
+bind main    A      !?git commit --amend --allow-empty
+
+# Ctrl-a で git add .
+bind generic <Ctrl-a>      !@git add .
+bind main    <Ctrl-a>      !@git add .
+
+# 更新
+set refresh-mode = auto
+# set refresh-mode = after-command
+# set refresh-mode = periodic
+# set refresh-interval = 2
+
+# set diff-highlight = true
+
+# set ignore-space = all
+
+bind generic <Escape>      quit
+bind main    <Escape>      quit
+
+# "F5" or "r" を連打でmainへ返ってきて情報更新
+bind main    <F5>      refresh
+bind diff    <F5>      :view-main
+bind stage   <F5>      :view-main
+bind main    r         refresh
+bind diff    r         :view-main
+bind stage   r         :view-main
+
+bind generic g      move-first-line
+bind main    g      move-first-line
+bind generic G      move-last-line
+bind main    G      move-last-line
+
+# カラー設定
+# # diff-view で境界が見やすくなるように変更
+color  diff-header       black    yellow
+color  diff-chunk        black    white
+
+# ローカル環境用の設定
+source ~/.tigrc_mysettings
+
+# end of file

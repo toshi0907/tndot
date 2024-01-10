@@ -1,0 +1,8 @@
+--langdef=markdown
+--langmap=markdown:.md
+--regex-markdown=/^# (.*)/\1/a,reg/
+--regex-markdown=/^## (.*)/^       \1/a,reg/
+--regex-markdown=/^### (.*)/      \1/a,reg/
+--exclude=.git/*
+--exclude=CVS/*
+--exclude=work_root/*

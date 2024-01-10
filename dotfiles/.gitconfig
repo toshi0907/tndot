@@ -1,0 +1,76 @@
+# Setting file priority
+# [Low]
+# /etc/gitconfig
+# ~/.gitconfig or ~/.config/git/config
+# .git/config(@repository)
+# [High]
+
+[include]
+  # Settings for local
+  path = ~/.gitconfig.local
+
+[user]
+	name = toshi0907
+	email = n00toshi@gmail.com
+
+[alias]
+  lg = log --pretty=format:'%Cred%h%Creset %s -%C(yellow)%d%Creset %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' 
+  lgbt = log --graph --simplify-by-decoration --all --pretty=format:'%d %s'
+  lgbtorig = log --remotes=origin/ --graph --simplify-by-decoration  --pretty=format:'%d %s'
+  lgbt2 = log --graph --simplify-by-decoration --all --pretty=format:' -%C(yellow)%d%Creset %s'
+  lgbt3 = log --graph --all --pretty=format:' -%C(yellow)%d%Creset %s'
+  st = status
+  co = commit
+  ch = checkout
+  b  = branch
+  ba = branch --all
+  rmcommit = reset HEAD^
+  unstage = reset HEAD
+  emptycommit = commit --allow-empty
+  curbranch = rev-parse --abbrev-ref HEAD # current branch name. If is not in branch print "HEAD", maybe...
+  # breakcommit = commit -m "====================" --allow-empty
+
+[core]
+	editor = nvim
+	excludesfile = ~/.gitignore_global
+	symlinks = true
+	filemode = false
+	attributesfile = ~/.gitattributes
+	autocrlf = false
+
+[merge]
+	tool = vimdiff
+
+[push]
+  # default = matching
+  default = nothing
+
+# use ssh key
+[url "github:"]
+InsteadOf = https://github.com/
+InsteadOf = git@github.com:
+
+[rebase]
+  autosquash = true # use --autosquash option when "git rebase"
+  # autosquash = false # use --autosquash option when "git rebase"
+
+[pull]
+	rebase = true # use --rebase option when "git pull"
+
+[diff "euc-jp"]
+	textconv = iconv -f EUC-JP
+
+[remote "origin"]
+	prune = true
+
+[rerere]
+	enabled = true
+
+[pager]
+    log = diff-highlight | less
+    show = diff-highlight | less
+    diff = diff-highlight | less
+
+[sequence]
+	editor = nvim
