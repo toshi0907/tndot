@@ -1,23 +1,11 @@
 #!/bin/bash
 
-PACKAGE_MNG=""
-
-LINUX_DISTRIBUTION=$(cat /etc/os-release | grep -E "^ID=" | sed -e "s/ID=//g")
-echo
-echo $LINUX_DISTRIBUTION
-echo
-
-cat /etc/os-release | grep -E "^ID=" | grep ubuntu
-if [ $? -eq 0 ]; then
-  PACKAGE_MNG="apt-get"
-fi
-
-if [ -z "$PACKAGE_MNG" ]; then
-  echo 'Error: Cannot detect package manager'
-  exit
-fi
-
 function InstallPackageByPackMng() {
+  if [ "$1" == "DUMMY" ]; then
+    echo "[SKIP] $2"
+    return
+  fi
+
   echo -e -n "[ ** ] $2\r"
   echo -e "\n\n>>> $2 start" >>~/setuplog.txt
   sudo $1 install -y $2 &>>~/setuplog.txt
@@ -31,10 +19,73 @@ function InstallPackageByPackMng() {
   fi
 }
 
-echo "" >~/setuplog.txt
+function CheckAndCdDir() {
+  if [ ! -d $1 ]; then
+    mkdir -p $1
+  fi
+  echo
+  echo "change dir ==> $1"
+  cd $1
+}
 
-sudo apt-get -y update
-sudo apt-get -y upgrade
+######################################################
+
+echo
+echo "============"
+echo "=== TREE ==="
+echo "============"
+echo
+tree -a -I .git
+
+echo
+echo "==========="
+echo "=== PWD ==="
+echo "==========="
+echo
+
+PWD_SCRIPT=$(pwd)
+echo "$PWD_SCRIPT"
+
+######################################################
+
+echo
+echo "================"
+echo "=== LINUX ID ==="
+echo "================"
+echo
+
+LINUX_DISTRIBUTION=$(cat /etc/os-release | grep -E "^ID=" | sed -e "s/ID=//g")
+echo "$LINUX_DISTRIBUTION"
+
+######################################################
+
+echo
+echo "=============================="
+echo "=== UPDATE PACKAGE MANAGER ==="
+echo "=============================="
+echo
+
+PACKAGE_MNG="DUMMY"
+cat /etc/os-release | grep -E "^ID=" | grep ubuntu
+if [ $? -eq 0 ]; then
+  PACKAGE_MNG="apt-get"
+fi
+
+if [ "$PACKAGE_MNG" != "DUMMY" ]; then
+  echo "" >~/setuplog.txt
+  sudo ${PACKAGE_MNG} -y update
+  sudo ${PACKAGE_MNG} -y upgrade
+else
+  echo "Skip update"
+fi
+
+######################################################
+
+echo
+echo "========================"
+echo "=== INSTALL SOFTWARE ==="
+echo "========================"
+echo
 
 InstallPackageByPackMng ${PACKAGE_MNG} git
 InstallPackageByPackMng ${PACKAGE_MNG} tig
@@ -57,5 +108,52 @@ InstallPackageByPackMng ${PACKAGE_MNG} python3-pip
 InstallPackageByPackMng ${PACKAGE_MNG} docker
 InstallPackageByPackMng ${PACKAGE_MNG} docker-compose
 InstallPackageByPackMng ${PACKAGE_MNG} net-tools
+
+######################################################
+
+echo
+echo "===================="
+echo "=== SETUP BASHRC ==="
+echo "===================="
+echo
+
+CheckAndCdDir ~/
+
+ln -s ${PWD_SCRIPT}/dotfiles/.bashrc ./
+
+CheckAndCdDir ~/.config/bashrc
+
+for file_name in $(ls ${PWD_SCRIPT}/dotfiles/.config/bashrc/); do
+  echo -n "file : ${file_name}"
+  echo -n " : "
+  ln -s ${PWD_SCRIPT}/dotfiles/.config/bashrc/${file_name} ./
+done
+
+######################################################
+
+echo
+echo "================="
+echo "=== SETUP VIM ==="
+echo "================="
+echo
+
+CheckAndCdDir ~/.config/nvim/colors
+for file_name in $(ls ${PWD_SCRIPT}/dotfiles/.config/nvim/colors/); do
+  echo -n "file : ${file_name}"
+  echo -n " : "
+  ln -s ${PWD_SCRIPT}/dotfiles/.config/nvim/colors/${file_name} ./
+done
+
+CheckAndCdDir ~/.vim/vimrc
+
+for file_name in $(ls ${PWD_SCRIPT}/dotfiles/.vim/vimrc/); do
+  echo -n "file : ${file_name}"
+  echo -n " : "
+  ln -s ${PWD_SCRIPT}/dotfiles/.vim/vimrc/${file_name} ./
+done
+
+######################################################
+
+cd ${PWD_SCRIPT}
 
 # end
