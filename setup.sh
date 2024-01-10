@@ -1,6 +1,8 @@
 #!/bin/bash
 
 function InstallPackageByPackMng() {
+  # $1 : Package manager name
+  # $2 : Software name
   if [ "$1" == "DUMMY" ]; then
     echo "[SKIP] $2"
     return
@@ -20,11 +22,10 @@ function InstallPackageByPackMng() {
 }
 
 function CheckAndCdDir() {
+  # $1 : Target directory
   if [ ! -d $1 ]; then
     mkdir -p $1
   fi
-  echo
-  echo "change dir ==> $1"
   cd $1
 }
 
@@ -111,22 +112,44 @@ InstallPackageByPackMng ${PACKAGE_MNG} net-tools
 
 ######################################################
 
+function CreateSymLinkAndCheck() {
+  # $1 <ex> /base/file/path/filename
+  local lBaseFilePath=$1
+
+  # $2 <ex> /target/dir/path/
+  local lTargetDirPath=$2
+
+  # $3 <ex> target_file_name
+  local lTargetFileName=$3
+
+  if [ "$lTargetFileName" == "./" ]; then
+    lTargetFileName=${lBaseFilePath##*/}
+  fi
+
+  CheckAndCdDir ${lTargetDirPath}
+  ln -s ${lBaseFilePath} ${lTargetFileName} &>/dev/null
+
+  local lLinkFilePath=$(readlink ${lTargetFileName})
+
+  echo -e -n "       ${lBaseFilePath} => ${lTargetDirPath} [${lTargetFileName}]\r"
+  if [ "${lBaseFilePath}" != "${lLinkFilePath}" ]; then
+    echo -e "\033[1;31m[ NG ]\033[0;39m"
+    echo "    >> ${lLinkFilePath}"
+  else
+    echo -e "\033[1;32m[ OK ]\033[0;39m"
+  fi
+}
+
 echo
 echo "===================="
 echo "=== SETUP BASHRC ==="
 echo "===================="
 echo
 
-CheckAndCdDir ~/
-
-ln -s ${PWD_SCRIPT}/dotfiles/.bashrc ./
-
-CheckAndCdDir ~/.config/bashrc
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.bashrc ~/ ./
 
 for file_name in $(ls ${PWD_SCRIPT}/dotfiles/.config/bashrc/); do
-  echo -n "file : ${file_name}"
-  echo -n " : "
-  ln -s ${PWD_SCRIPT}/dotfiles/.config/bashrc/${file_name} ./
+  CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.config/bashrc/${file_name} ~/.config/bashrc ./
 done
 
 ######################################################
@@ -137,19 +160,15 @@ echo "=== SETUP VIM ==="
 echo "================="
 echo
 
-CheckAndCdDir ~/.config/nvim/colors
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.vimrc ~/.config/nvim/ ./init.vim
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.vimrc ~/ ./
+
 for file_name in $(ls ${PWD_SCRIPT}/dotfiles/.config/nvim/colors/); do
-  echo -n "file : ${file_name}"
-  echo -n " : "
-  ln -s ${PWD_SCRIPT}/dotfiles/.config/nvim/colors/${file_name} ./
+  CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.config/nvim/colors/${file_name} ~/.config/nvim/colors ./
 done
 
-CheckAndCdDir ~/.vim/vimrc
-
 for file_name in $(ls ${PWD_SCRIPT}/dotfiles/.vim/vimrc/); do
-  echo -n "file : ${file_name}"
-  echo -n " : "
-  ln -s ${PWD_SCRIPT}/dotfiles/.vim/vimrc/${file_name} ./
+  CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.vim/vimrc/${file_name} ~/.vim/vimrc ./
 done
 
 ######################################################
