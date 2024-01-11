@@ -2,6 +2,22 @@
 ### Functions
 #######################
 
+### path
+
+function BashrcAddPath() {
+  local item=$1
+  # echo "ADD_PATH:$1"
+  echo ${PATH} | grep ${item} >/dev/null
+  if [ $? -ne 0 ]; then
+    if [ ! -d ${item} ]; then
+      echo "Failed to setup additional PATH!"
+      echo "${item}"
+    else
+      export PATH="${PATH}:${item}"
+    fi
+  fi
+}
+
 ### git
 
 function BashrcCommitFixup() {
@@ -134,6 +150,9 @@ function bashrc_pts_kill() {
 
 export EDITOR=nvim
 export SHELL=/bin/bash
+
+# PATH
+BashrcAddPath /usr/share/doc/git/contrib/diff-highlight
 
 #######################
 ### Alias
