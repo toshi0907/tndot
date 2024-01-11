@@ -10,7 +10,7 @@ fi
 cd ${PATH_CONFIG_BASHRC}
 
 for bashrc_path_name in $(ls ${PATH_CONFIG_BASHRC}/bashrc*); do
-  echo "[bashrc] : ${bashrc_path_name}"
+  echo "[bashrc] : ${bashrc_path_name} => $(readlink "${bashrc_path_name}")"
   source ${bashrc_path_name}
 done
 
