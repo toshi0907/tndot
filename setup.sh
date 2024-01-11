@@ -8,15 +8,16 @@ function InstallPackageByPackMng() {
     return
   fi
 
-  echo -e -n "[ ** ] $2\r"
+  echo -e -n "[ **** ] $2\r"
   echo -e "\n\n>>> $2 start" >>~/setuplog.txt
   sudo $1 install -y $2 &>>~/setuplog.txt
   if [ $? -ne 0 ]; then
-    echo "Error:[$2]failed to install"
-    exit
+    echo -e -n "\033[1;31m"
+    echo "[Failed]"
+    echo -e -n "\033[0;39m"
   else
     echo -e -n "\033[1;32m"
-    echo "[ OK ]"
+    echo "[  OK  ]"
     echo -e -n "\033[0;39m"
   fi
 }
@@ -106,9 +107,11 @@ InstallPackageByPackMng ${PACKAGE_MNG} node-js-beautify
 InstallPackageByPackMng ${PACKAGE_MNG} yarn
 InstallPackageByPackMng ${PACKAGE_MNG} python3
 InstallPackageByPackMng ${PACKAGE_MNG} python3-pip
+InstallPackageByPackMng ${PACKAGE_MNG} python3-autopep8
 InstallPackageByPackMng ${PACKAGE_MNG} docker
 InstallPackageByPackMng ${PACKAGE_MNG} docker-compose
 InstallPackageByPackMng ${PACKAGE_MNG} net-tools
+InstallPackageByPackMng ${PACKAGE_MNG} exuberant-ctags
 
 ######################################################
 
