@@ -253,3 +253,5 @@ vnoremap < <gv
 " コピペ
 cmap <C-v> <C-r>"
 
+autocmd BufRead,BufNewFile .gitconfig.local set filetype=gitconfig
+

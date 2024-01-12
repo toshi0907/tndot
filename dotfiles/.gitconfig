@@ -32,45 +32,45 @@
   # breakcommit = commit -m "====================" --allow-empty
 
 [core]
-	editor = nvim
-	excludesfile = ~/.gitignore_global
-	symlinks = true
-	filemode = false
-	attributesfile = ~/.gitattributes
-	autocrlf = false
+  editor = nvim
+  excludesfile = ~/.gitignore_global
+  symlinks = true
+  filemode = false
+  attributesfile = ~/.gitattributes
+  autocrlf = false
 
 [merge]
-	tool = vimdiff
+  tool = vimdiff
 
 [push]
   # default = matching
   default = nothing
 
-# use ssh key
-[url "github:"]
-InsteadOf = https://github.com/
-InsteadOf = git@github.com:
+### If use ssh key please add below to ~/.gitconfig.local
+# [url "github:"]
+#   InsteadOf = https://github.com/
+#   InsteadOf = git@github.com:
 
 [rebase]
   autosquash = true # use --autosquash option when "git rebase"
   # autosquash = false # use --autosquash option when "git rebase"
 
 [pull]
-	rebase = true # use --rebase option when "git pull"
+  rebase = true # use --rebase option when "git pull"
 
 [diff "euc-jp"]
-	textconv = iconv -f EUC-JP
+  textconv = iconv -f EUC-JP
 
 [remote "origin"]
-	prune = true
+  prune = true
 
 [rerere]
-	enabled = true
+  enabled = true
 
 [pager]
-    log = diff-highlight | less
-    show = diff-highlight | less
-    diff = diff-highlight | less
+  log = diff-highlight | less
+  show = diff-highlight | less
+  diff = diff-highlight | less
 
 [sequence]
-	editor = nvim
+  editor = nvim
