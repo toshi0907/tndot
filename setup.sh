@@ -149,7 +149,10 @@ echo "=== SETUP BASHRC ==="
 echo "===================="
 echo
 
-CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.bashrc ~/ ./
+
+echo "Please add below command to ~/.bashrc"
+echo ">> source ${PWD_SCRIPT}/dotfiles/.bashrc"
+# CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.bashrc ~/ ./
 
 for file_name in $(ls ${PWD_SCRIPT}/dotfiles/.config/bashrc/); do
   CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.config/bashrc/${file_name} ~/.config/bashrc ./
