@@ -149,7 +149,6 @@ echo "=== SETUP BASHRC ==="
 echo "===================="
 echo
 
-
 echo "Please add below command to ~/.bashrc"
 echo ">> source ${PWD_SCRIPT}/dotfiles/.bashrc"
 # CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.bashrc ~/ ./
@@ -181,19 +180,27 @@ done
 
 echo
 echo "================="
+echo "=== SETUP GIT ==="
+echo "================="
+echo
+
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.gitconfig ~/ ./
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.git-prompt.sh ~/ ./
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.tigrc ~/ ./
+
+######################################################
+
+echo
+echo "================="
 echo "=== SETUP ETC ==="
 echo "================="
 echo
 
 CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.ctags ~/ ./
 CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.editorconfig ~/ ./
-CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.gitconfig ~/ ./
-CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.git-prompt.sh ~/ ./
-CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.tigrc ~/ ./
 CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.tmux.conf ~/ ./
 
 ######################################################
-
 
 cd ${PWD_SCRIPT}
 
