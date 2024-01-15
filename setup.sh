@@ -189,6 +189,7 @@ echo
 CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.gitconfig ~/ ./
 CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.git-prompt.sh ~/ ./
 CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.tigrc ~/ ./
+sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
 
 ######################################################
 
