@@ -112,6 +112,7 @@ InstallPackageByPackMng ${PACKAGE_MNG} docker
 InstallPackageByPackMng ${PACKAGE_MNG} docker-compose
 InstallPackageByPackMng ${PACKAGE_MNG} net-tools
 InstallPackageByPackMng ${PACKAGE_MNG} exuberant-ctags
+InstallPackageByPackMng ${PACKAGE_MNG} manpages-ja
 
 ######################################################
 
