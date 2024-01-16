@@ -64,6 +64,25 @@ function CreateSymLinkAndCheck() {
   fi
 }
 
+function VimPluginInstall() {
+  local lTargetPath=
+  if [ "$1" == "start" ]; then
+    lTargetPath=~/.config/nvim/pack/tn/start
+  elif [ "$1" == "opt" ]; then
+    lTargetPath=~/.config/nvim/pack/tn/opt
+  else
+    echo "Error@VimPluginInstall"
+    exit 1
+  fi
+
+  local lPluginName=$2
+
+  CheckAndCdDir ${lTargetPath}
+
+  echo "    ${lPluginName} install"
+  git clone https://github.com/$2 --depth=1
+}
+
 function CheckAndCdDir() {
   # $1 : Target directory
   if [ ! -d $1 ]; then
@@ -231,15 +250,32 @@ for file_name in $(ls ${PWD_SCRIPT}/dotfiles/.vim/vimrc/); do
   CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.vim/vimrc/${file_name} ~/.vim/vimrc ./
 done
 
-# vim-plug
-if [ ! -e ${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim ]; then
-  # for vim
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  # for neovim
-  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  mkdir -p ~/.config/nvim/plugged
-  echo "install vim-plug!!!"
+# plugins
+if [ ! -d ~/.config/nvim/pack/tn/start ]; then
+  mkdir -p ~/.config/nvim/pack/tn/start
 fi
+
+VimPluginInstall 'start' 'airblade/vim-gitgutter'
+VimPluginInstall 'start' 'tpope/vim-fugitive'
+VimPluginInstall 'start' 'hotwatermorning/auto-git-diff'
+VimPluginInstall 'start' 'ctrlpvim/ctrlp.vim'
+VimPluginInstall 'start' 'vim-scripts/taglist.vim'
+VimPluginInstall 'start' 'majutsushi/tagbar'
+VimPluginInstall 'start' 'vim-scripts/vim-auto-save'
+VimPluginInstall 'start' 'thinca/vim-qfreplace'
+VimPluginInstall 'start' 'tpope/vim-surround'
+VimPluginInstall 'start' 'justmao945/vim-clang'
+VimPluginInstall 'start' 'junegunn/vim-easy-align'
+VimPluginInstall 'start' 'maksimr/vim-jsbeautify'
+VimPluginInstall 'opt' 'tomasr/molokai'
+VimPluginInstall 'start' 'aklt/plantuml-syntax'
+VimPluginInstall 'start' 'vim-scripts/aspnetcs'
+VimPluginInstall 'start' 'vim-jp/vimdoc-ja'
+
+echo "[Plugin:start]"
+ls ~/.config/nvim/pack/tn/start
+echo "[Plugin:opt]"
+ls ~/.config/nvim/pack/tn/opt
 
 ######################################################
 

@@ -255,3 +255,7 @@ cmap <C-v> <C-r>"
 
 autocmd BufRead,BufNewFile .gitconfig.local set filetype=gitconfig
 
+" 自分用メモを開く
+nnoremap <C-t> :e ~/.vim/note.md<CR>
+
+
