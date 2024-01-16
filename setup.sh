@@ -231,6 +231,16 @@ for file_name in $(ls ${PWD_SCRIPT}/dotfiles/.vim/vimrc/); do
   CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.vim/vimrc/${file_name} ~/.vim/vimrc ./
 done
 
+# vim-plug
+if [ ! -e ${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim ]; then
+  # for vim
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  # for neovim
+  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  mkdir -p ~/.config/nvim/plugged
+  echo "install vim-plug!!!"
+fi
+
 ######################################################
 
 echo
