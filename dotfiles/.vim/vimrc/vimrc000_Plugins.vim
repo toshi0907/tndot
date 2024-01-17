@@ -6,6 +6,14 @@ endfunction
 " ### airblade/vim-gitgutter
 " ###################################################################
 if s:is_plugin_installed('vim-gitgutter')
+  " Hunk移動
+  autocmd BufEnter,BufNewFile,BufRead * nmap {            [c
+  autocmd BufEnter,BufNewFile,BufRead * nmap }            ]c
+  autocmd BufEnter,BufNewFile,BufRead *.diff nmap {       :call search('^ .*\n[+-]', 'b', 'W')<CR>
+  autocmd BufEnter,BufNewFile,BufRead *.diff nmap }       :call search('^ .*\n[+-]', 'W')<CR>
+
+  nnoremap <leader>ga :GitGutterStageHunk<CR>
+
   " default map: nmap <Leader>hs <Plug>GitGutterStageHunk
   " default map: nmap <Leader>hu <Plug>GitGutterUndoHunk
   " default map: nmap <Leader>hp <Plug>GitGutterPreviewHunk
@@ -21,7 +29,11 @@ endif
 " ### tpope/vim-fugitive
 " ###################################################################
 if s:is_plugin_installed('vim-fugitive')
-  " N/A
+  nnoremap <leader>gd :Gdiffsplit<CR>
+  " nnoremap <leader>gs :Git<CR>
+  " nnoremap <leader>gc :Gcommit<CR>
+  " nnoremap <leader>gl :Gclog<CR>
+  " nnoremap gb  :Git blame<CR>
 endif
 
 " ###
@@ -65,8 +77,7 @@ if s:is_plugin_installed('taglist.vim')
 
   " nnoremap tl :Tlist<CR><C-w>l<CR><C-w>l<CR><C-w>l
   nnoremap tl :Tlist<CR>
-  " nnoremap <Leader><C-]> :tnext
-
+  nnoremap <leader>tl :TlistOpen<CR>
 endif
 
 " ###
@@ -87,6 +98,12 @@ if s:is_plugin_installed('tagbar')
           \ }
 
   " nnoremap tl :TagbarToggle<CR><C-w>=
+
+  " 現在位置のスコープを表示
+  function! MyFuncTagScopeCheck()
+    echo tagbar#currenttag('[%s]','','f')
+  endfunction
+  nnoremap <leader>fn :call MyFuncTagScopeCheck()<CR>
 endif
 
 " ###
@@ -130,15 +147,17 @@ if s:is_plugin_installed('vim-clang')
   " 1行フォーマット
   autocmd FileType cpp nnoremap <C-F> <S-v>:!clang-format<CR><S-v>=j
   " Hunk単位でのフォーマット
-  autocmd FileType cpp nnoremap <Leader>f :call MyClangFormatHunkSet()<CR>@v@b:s/} else/}\relse/ge<CR>@n:call MyClangFormatPosReturn()<CR>
 
-  function! MyClangFormatHunkSet()
-    " need git-gutter hunk text-object : GitGutterTextObjectInnerVisual
-    let g:lTnCursLinePos = line(".")
-    call setreg('v', "vic")
-    call setreg('b', "vic")
-    call setreg('n', "vic=")
-  endfunction
+  if s:is_plugin_installed('vim-gitgutter')
+    function! MyClangFormatHunkSet()
+      " need git-gutter hunk text-object : GitGutterTextObjectInnerVisual
+      let g:lTnCursLinePos = line(".")
+      call setreg('v', "vic")
+      call setreg('b', "vic")
+      call setreg('n', "vic=")
+    endfunction
+    autocmd FileType cpp nnoremap <Leader>f :call MyClangFormatHunkSet()<CR>@v@b:s/} else/}\relse/ge<CR>@n:call MyClangFormatPosReturn()<CR>
+  endif
 
   function! MyClangFormatPosReturn()
     call cursor(g:lTnCursLinePos, 0)

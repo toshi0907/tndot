@@ -58,8 +58,8 @@
 [pull]
   rebase = true # use --rebase option when "git pull"
 
-[diff "euc-jp"]
-  textconv = iconv -f EUC-JP
+# [diff "euc-jp"]
+#   textconv = iconv -f EUC-JP
 
 [remote "origin"]
   prune = true

@@ -137,6 +137,16 @@ nnoremap * viw"zy/<C-r>z
 vnoremap * "zy:/<C-r>z
 nnoremap <ESC> :noh<CR>
 
+" {}への移動
+nmap (            :call search('{', 'b')<CR>
+nmap )            :call search('}')<CR>
+
+" Markdown移動
+autocmd FileType markdown nnoremap <leader>#                 /^# <CR>
+autocmd FileType markdown nnoremap <leader><leader>#         /^## <CR>
+autocmd FileType markdown nnoremap <leader><leader><leader># /^### <CR>
+autocmd FileType markdown nnoremap <leader>- /^- <CR>
+
 " ちょっとだけ高速移動
 nnoremap <S-j>      5j
 nnoremap <S-k>      5k
@@ -251,9 +261,36 @@ vnoremap < <gv
 " コピペ
 cmap <C-v> <C-r>"
 
-" END OF FILE
+
+function! MyFuncRunSh()
+  " 現在編集中のシェルスクリプトファイルを実行
+  let strfilepath = expand("%:p") " ファイル名
+  echo strfilepath
+  if stridx(strfilepath, '.sh') > 0
+    execute  "!" . strfilepath
+  elseif stridx(strfilepath, '.py') > 0
+    execute  "!" . strfilepath
+  elseif stridx(strfilepath, 'git-rebase-todo') > 0
+    execute "!preedit_rebase_todo.py " . strfilepath
+    execute "edit"
+  else
+    echo "[MyFuncRunSh Error]This file is not *.sh or *.py file !!!"
+  endif
+endfunction
+nnoremap <F4>      :call MyFuncRunSh()<CR>
+
+function! MyFuncCtags()
+  " ctagsを実行
+  if executable("ctags") == 0
+    echo "ctags command not found!!!"
+    return
+  endif
+  execute  "!ctags -R"
+endfunction
+nnoremap <F9>      :call MyFuncCtags()<CR>
 
 " 自分用メモを開く
 nnoremap <C-t> :e ~/.vim/note.md<CR>
 
 
+" END OF FILE
