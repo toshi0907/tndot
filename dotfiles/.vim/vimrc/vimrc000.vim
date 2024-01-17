@@ -261,6 +261,10 @@ vnoremap < <gv
 " コピペ
 cmap <C-v> <C-r>"
 
+nnoremap <C-]> g<C-]>
+" nnoremap <C-]> <C-w><C-]> " 画面分割で開く
+
+nnoremap <C-E> :Explore<CR>
 
 function! MyFuncRunSh()
   " 現在編集中のシェルスクリプトファイルを実行

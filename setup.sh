@@ -272,6 +272,14 @@ VimPluginInstall 'start' 'aklt/plantuml-syntax'
 VimPluginInstall 'start' 'vim-scripts/aspnetcs'
 VimPluginInstall 'start' 'vim-jp/vimdoc-ja'
 
+# additional
+(
+  if [ ! -e ~/.config/nvim/pack/tn/start/vim-jsbeautify/plugin/lib/v1.8.9.zip ]; then
+    cd ~/.config/nvim/pack/tn/start/vim-jsbeautify/plugin/lib
+    wget https://github.com/beautify-web/js-beautify/archive/v1.8.9.zip && unzip v1.8.9.zip && cp -rf js-beautify-1.8.9/* ~/.config/nvim/pack/tn/start/vim-jsbeautify/plugin/lib/
+  fi
+)
+
 echo "[Plugin:start]"
 ls ~/.config/nvim/pack/tn/start
 echo "[Plugin:opt]"
