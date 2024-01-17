@@ -218,3 +218,32 @@ alias COLOR_CHK='curl -s https://gist.githubusercontent.com/lifepillar/09a44b8cf
 source ~/.git-prompt.sh
 
 PS1='\[\e[0;32m\][\[\e[0;36m\]$(GitAccuntNow)\[\e[0;32m\] \w]\[\e[m\]\\$ '
+
+##########################
+### Notifications
+##########################
+function TndotUpdateCheck() {
+  cd ~/tndot
+  git fetch
+  HASH_TNDOT_LOCAL=$(git rev-parse main)
+  HASH_TNDOT_ORIGIN=$(git rev-parse origin/main)
+  HASH_TNDOT_MERGEBASE=$(git merge-base main origin/main)
+  if [ "${HASH_TNDOT_LOCAL}" != "${HASH_TNDOT_ORIGIN}" ]; then
+    echo
+    echo "======== [tndot update check] ========"
+    echo
+    echo "  << update needed >>  main != origin/main"
+    if [ "${HASH_TNDOT_LOCAL}" == "${HASH_TNDOT_MERGEBASE}" ]; then
+      echo
+      echo "  << update command >> ( cd ~/tndot; git checkout main; git merge origin/main )"
+    fi
+    echo
+    echo "======================================"
+    echo
+  fi
+
+  HASH_TNDOT_LOCAL=
+  HASH_TNDOT_ORIGIN=
+  HASH_TNDOT_MERGEBASE=
+}
+TndotUpdateCheck &
