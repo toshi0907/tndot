@@ -10,8 +10,6 @@ set updatetime=100 " 更新タイミング[ms]
 " gitのコミットメッセージが勝手に改行されないようにする
 autocmd BufEnter,BufNewFile,BufRead * set textwidth=0
 
-" autocmd CursorHold * wall
-
 set backspace=indent,eol,start
 
 au QuickfixCmdPost make,grep,grepadd,vimgrep copen
@@ -51,11 +49,11 @@ set tabstop=2
 
 set smartindent
 set autoindent
-" autocmd FileType cpp setlocal equalprg=clang-format
 
 set wildmenu " コマンドの補完をメニュー形式で
 
 filetype on " ファイルタイプの設定ON
+autocmd BufRead,BufNewFile .gitconfig.local set filetype=gitconfig
 
 " □とか○の文字があってもカーソル位置がずれないようにする
 if exists('&ambiwidth')
@@ -253,7 +251,7 @@ vnoremap < <gv
 " コピペ
 cmap <C-v> <C-r>"
 
-autocmd BufRead,BufNewFile .gitconfig.local set filetype=gitconfig
+" END OF FILE
 
 " 自分用メモを開く
 nnoremap <C-t> :e ~/.vim/note.md<CR>
