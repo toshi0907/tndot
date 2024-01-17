@@ -38,6 +38,7 @@
   filemode = false
   attributesfile = ~/.gitattributes
   autocrlf = false
+  # hooksPath = .config/git/hooks # use global hooks (ignore local hooks)
 
 [merge]
   tool = vimdiff
