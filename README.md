@@ -30,5 +30,9 @@ Please add settings "~/.gitconfig.local".
 
 Please add settings "~/.tigrc_mysettings".
 
+## For Note Files
+
+Please add files (or symlinks) of note to "~/.local/note/".
+
 <!-- end of file -->
 
