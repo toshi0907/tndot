@@ -176,6 +176,8 @@ if [ "${LINUX_DISTRIBUTION}" == "ubuntu" ]; then
   InstallPackageByPackMng apt-get manpages-ja
 
   sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 else
   echo "Skip install"
 fi
@@ -201,6 +203,7 @@ CommandCheck cmake
 CommandCheck tmux
 CommandCheck peco
 CommandCheck node
+CommandCheck nvm
 CommandCheck npm
 CommandCheck js-beautify
 CommandCheck yarn
