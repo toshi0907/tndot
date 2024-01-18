@@ -151,7 +151,10 @@ function bashrc_pts_kill() {
 export EDITOR=nvim
 export SHELL=/bin/bash
 
-# PATH
+if ! [[ $PATH =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+  PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
 BashrcAddPath /usr/share/doc/git/contrib/diff-highlight
 
 #######################

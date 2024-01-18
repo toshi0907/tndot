@@ -264,7 +264,9 @@ cmap <C-v> <C-r>"
 nnoremap <C-]> g<C-]>
 " nnoremap <C-]> <C-w><C-]> " 画面分割で開く
 
-nnoremap <C-E> :Explore<CR>
+" nnoremap <C-E> :Explore<CR>
+" nnoremap <C-E> :30Lexplore ~/.config<CR> " 左に分割して開く:幅30px
+nnoremap <C-E> :30Lexplore<CR> " 左に分割して開く:幅30px
 
 function! MyFuncRunSh()
   " 現在編集中のシェルスクリプトファイルを実行
