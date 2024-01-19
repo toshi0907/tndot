@@ -70,7 +70,7 @@ if s:is_plugin_installed('taglist.vim')
   " 表示項目を絞る設定
   " autocmd BufEnter,BufRead *.h   let tlist_cpp_settings = 'c++;c:class'
   " autocmd BufEnter,BufRead *.cpp let tlist_cpp_settings = 'c++;c:class;f:function'
-  let tlist_cpp_settings = 'cpp;c:class;f:function'
+  let tlist_cpp_settings = 'c++;c:class;f:function'
 
   " let tlist_markdown_settings = 'markdown;r:Title;s:Title2;t:Title3;'
   let tlist_markdown_settings = 'markdown;c:chapters;s:sections;u:subsections'

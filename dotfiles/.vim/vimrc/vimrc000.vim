@@ -85,6 +85,34 @@ set statusline+=[%1l/%L:%c] " 行数
 " ### Syntax 見た目
 " ###################################################################
 
+syntax on  " シンタックスハイライト
+
+if has('syntax')
+  """ 全角スペースをハイライト表示
+  augroup ZenkakuSpace
+    autocmd!
+    autocmd ColorScheme       * highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+    autocmd VimEnter,WinEnter * call matchadd("ZenkakuSpace", '　')
+  augroup END
+
+  """ For Markdown
+  augroup MarkdownSyn
+    autocmd!
+    """ チェックボックス
+    " 未対応
+    autocmd ColorScheme       * highlight MarkdownCheckboxNone guifg=Black guibg=Yellow3
+    autocmd VimEnter,WinEnter * call matchadd("MarkdownCheckboxNone",    '^- [ \] ')
+    " 対応済
+    autocmd ColorScheme       * highlight MarkdownCheckboxChecked guifg=Black guibg=Green4
+    autocmd VimEnter,WinEnter * call matchadd("MarkdownCheckboxChecked", '^- [x\] ')
+    " 保留・対応不要
+    autocmd ColorScheme       * highlight MarkdownCheckboxPending guifg=Black guibg=Gray
+    autocmd VimEnter,WinEnter * call matchadd("MarkdownCheckboxPending", '^- [-\] ')
+    " 見出し
+    autocmd ColorScheme       * highlight markdownH1 guifg=Black guibg=Grey82
+  augroup END
+endif
+
 " 端末の背景色を採用 colorschemeより前に記述必要？
 autocmd ColorScheme * highlight Normal ctermbg=none guibg=none
 autocmd ColorScheme * highlight LineNr ctermbg=none guibg=none
