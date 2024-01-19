@@ -1,8 +1,11 @@
 --langdef=markdown
 --langmap=markdown:.md
---regex-markdown=/^# (.*)/# \1/a,reg/
---regex-markdown=/^## (.*)/## \1/a,reg/
---regex-markdown=/^### (.*)/### \1/a,reg/
+--regex-markdown=/^# (.*)/# \1/c,chapters/
+--regex-markdown=/^## (.*)/## \1/c,chapters/
+--regex-markdown=/^### (.*)/### \1/c,chapters/
+--regex-markdown=/^#### (.*)/#### \1/c,chapters/
+--regex-markdown=/^##### (.*)/##### \1/c,chapters/
+--regex-markdown=/^###### (.*)/###### \1/c,chapters/
 --exclude=.git/*
 --exclude=CVS/*
 --exclude=work_root/*
