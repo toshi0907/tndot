@@ -1,0 +1,77 @@
+#!/bin/bash
+
+case "$2,$3" in
+merge,)
+  /usr/bin/perl -i.bak -ne 's/^/# /, s/^# #/#/ if /^Conflicts/ .. /#/; print' "$1"
+  ;;
+*) ;;
+esac
+
+# $1 メッセージのファイル
+if [ -z "$1" ]; then
+  echo 'Empty arg error $2: exit...'
+  exit 1
+fi
+
+# .git/hooks/commit-msg.sample参照
+grep "Please enter the commit message for your changes" $1 &>/dev/null
+IS_EDIT=$?
+
+if [ ${IS_EDIT} -eq 0 ]; then
+  # エディタが起動する場合
+  (
+    # ブランチ名の追加
+    echo "# === BRANCH NAME ==="
+    echo "# $(git rev-parse --abbrev-ref HEAD)"
+    echo "#"
+  ) >>$1
+
+  (
+    # ログの追加
+    echo "# === LOG ==="
+    IFS_BACKUP=$IFS
+    IFS=$'\n'
+
+    for line in $(git log -n 50); do
+      line=$(echo $line | sed -e '/^Date.*$/d')
+      line=$(echo $line | sed -e '/^Author:.*$/d')
+      line=$(echo $line | sed -e 's/^commit //g')
+      line=$(echo $line | sed -e 's/^ *$//g')
+      line=$(echo $line | sed -e 's/^ />>>/g')
+      if [ "$line" != "" ]; then
+        line=$(echo $line | sed -e 's/^/# /g')
+        echo "$line"
+      fi
+    done
+
+    IFS=$IFS_BACKUP
+
+    echo "#"
+  ) >>$1
+
+  (
+    # 差分の追加
+    echo "# === DIFF ==="
+    IFS_BACKUP=$IFS
+    IFS=$'\n'
+
+    for line in $(git diff --cached | sed -e "s/^/# /g"); do
+      echo "$line"
+    done
+    if [ "$(git diff --cached)" == "" ]; then
+      for line in $(git diff HEAD^ | sed -e "s/^/# /g"); do
+        echo "$line"
+      done
+    fi
+    IFS=$IFS_BACKUP
+
+    echo "#"
+  ) >>$1
+else
+  # エディタが起動しない場合
+  # rebaseの途中etc...
+  sed -i -e "s/^#.*//g" $1
+fi
+
+# end of file
+

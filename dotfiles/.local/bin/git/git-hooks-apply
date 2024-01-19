@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+git rev-parse --is-inside-work-tree &>/dev/null
+if [ $? -ne 0 ]; then
+  echo "Not in git repository."
+  exit 1
+fi
+
+GIT_ROOT_DIR_PATH=$(git rev-parse --show-toplevel)
+cd ${GIT_ROOT_DIR_PATH}/.git/hooks
+
+pwd
+
+HOOKS_FILE_NAME=prepare-commit-msg
+if [ -e ./${HOOKS_FILE_NAME} ]; then
+  echo "[${HOOKS_FILE_NAME}] file already exist."
+else
+  cp ~/.local/git_hooks/${HOOKS_FILE_NAME} ./${HOOKS_FILE_NAME}
+fi

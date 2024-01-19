@@ -319,6 +319,8 @@ CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.gitconfig ~/ ./
 CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.git-prompt.sh ~/ ./
 CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.tigrc ~/ ./
 CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.local/bin/git/git-abort ~/.local/bin ./
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.local/bin/git/git-hooks-apply ~/.local/bin ./
+CreateSymLinkAndCheck ${PWD_SCRIPT}/dotfiles/.local/bin/git_hooks/prepare-commit-msg ~/.local/git_hooks ./
 
 ######################################################
 
