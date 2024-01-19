@@ -2,6 +2,7 @@
 
 DISP_ARG_OK="[\033[1;32m  OK  \033[0;39m]"
 DISP_ARG_NG="[\033[1;31mFailed\033[0;39m]"
+SETUP_LOG_FILE_PATH=~/setuplog.txt
 
 ######################################################
 
@@ -14,8 +15,8 @@ function InstallPackageByPackMng() {
   fi
 
   echo -e -n "[ **** ] $2\r"
-  echo -e "\n\n>>> $2 start" >>~/setuplog.txt
-  sudo $1 install -y $2 &>>~/setuplog.txt
+  echo -e "\n\n>>> $2 start" >>${SETUP_LOG_FILE_PATH}
+  sudo $1 install -y $2 &>>${SETUP_LOG_FILE_PATH}
   if [ $? -ne 0 ]; then
     echo -e "${DISP_ARG_NG}"
   else
@@ -79,8 +80,9 @@ function VimPluginInstall() {
 
   CheckAndCdDir ${lTargetPath}
 
-  echo "    ${lPluginName} install"
-  git clone https://github.com/$2 --depth=1
+  echo "    ${lPluginName} install" &>>${SETUP_LOG_FILE_PATH}
+
+  git clone https://github.com/$2 --depth=1 &>>${SETUP_LOG_FILE_PATH}
 }
 
 function CheckAndCdDir() {
@@ -217,6 +219,7 @@ CommandCheck ctags
 CommandCheck hugo
 CommandCheck tree
 CommandCheck diff-highlight
+CommandCheck wget
 
 ######################################################
 
@@ -270,6 +273,8 @@ if [ ! -d ~/.config/nvim/pack/tn/start ]; then
   mkdir -p ~/.config/nvim/pack/tn/start
 fi
 
+echo "Plugins install start"
+
 VimPluginInstall 'start' 'airblade/vim-gitgutter'
 VimPluginInstall 'start' 'tpope/vim-fugitive'
 VimPluginInstall 'start' 'hotwatermorning/auto-git-diff'
@@ -293,7 +298,9 @@ VimPluginInstall 'start' 'vim-jp/vimdoc-ja'
     cd ~/.config/nvim/pack/tn/start/vim-jsbeautify/plugin/lib
     wget https://github.com/beautify-web/js-beautify/archive/v1.8.9.zip && unzip v1.8.9.zip && cp -rf js-beautify-1.8.9/* ~/.config/nvim/pack/tn/start/vim-jsbeautify/plugin/lib/
   fi
-)
+) >>${SETUP_LOG_FILE_PATH}
+
+echo "Plugins install end"
 
 echo "[Plugin:start]"
 ls ~/.config/nvim/pack/tn/start
