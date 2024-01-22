@@ -326,5 +326,6 @@ nnoremap <F9>      :call MyFuncCtags()<CR>
 " 自分用メモを開く
 nnoremap <C-t> :e ~/.vim/note.md<CR>
 
+let g:markdown_fenced_languages = ['cpp', 'bash=sh', 'python', 'sql', 'html', 'javascript', 'css', 'vim', 'vb', 'cs', 'diff', 'dosbatch', 'lua']
 
 " END OF FILE
