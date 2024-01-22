@@ -180,6 +180,7 @@ if [ "${LINUX_DISTRIBUTION}" == "ubuntu" ]; then
   sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
 
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+  nvm install --lts
 else
   echo "Skip install"
 fi
