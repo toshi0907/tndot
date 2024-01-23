@@ -276,7 +276,8 @@ fi
 
 echo "Plugins install start"
 
-VimPluginInstall 'start' 'airblade/vim-gitgutter'
+VimPluginInstall 'opt' 'airblade/vim-gitgutter'
+VimPluginInstall 'opt' 'lewis6991/gitsigns.nvim'
 VimPluginInstall 'start' 'tpope/vim-fugitive'
 VimPluginInstall 'start' 'hotwatermorning/auto-git-diff'
 VimPluginInstall 'start' 'ctrlpvim/ctrlp.vim'

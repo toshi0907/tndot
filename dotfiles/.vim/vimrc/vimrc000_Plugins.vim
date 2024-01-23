@@ -3,8 +3,69 @@ function! s:is_plugin_installed(plugin)
 endfunction
 
 " ###
+" ### lewis6991/gitsigns.nvim
+" ###################################################################
+"
+" TODO : いつか使いたい
+"
+""" if has('nvim')
+"""   echo "gitsign"
+"""   packadd gitsigns.nvim
+""" endif
+"""
+""" lua << EOF
+""" require('gitsigns').setup {
+"""   signs = {
+"""     add          = { text = '│' },
+"""     change       = { text = '│' },
+"""     delete       = { text = '_' },
+"""     topdelete    = { text = '‾' },
+"""     changedelete = { text = '~' },
+"""     untracked    = { text = '┆' },
+"""   },
+"""   signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+"""   numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
+"""   linehl     = true, -- Toggle with `:Gitsigns toggle_linehl`
+"""   word_diff  = true, -- Toggle with `:Gitsigns toggle_word_diff`
+"""   watch_gitdir = {
+"""     follow_files = true
+"""   },
+"""   auto_attach = true,
+"""   attach_to_untracked = true,
+"""   current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+"""   current_line_blame_opts = {
+"""     virt_text = true,
+"""     virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+"""     delay = 200,
+"""     ignore_whitespace = false,
+"""     virt_text_priority = 100,
+"""   },
+"""   current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+"""   sign_priority = 6,
+"""   update_debounce = 100,
+"""   status_formatter = nil, -- Use default
+"""   max_file_length = 40000, -- Disable if file is longer than this (in lines)
+"""   preview_config = {
+"""     -- Options passed to nvim_open_win
+"""     border = 'single',
+"""     style = 'minimal',
+"""     relative = 'cursor',
+"""     row = 0,
+"""     col = 1
+"""   },
+"""   yadm = {
+"""     enable = false
+"""   },
+""" }
+""" EOF
+"""
+""" " lua require('gitsigns').setup()
+
+
+" ###
 " ### airblade/vim-gitgutter
 " ###################################################################
+packadd vim-gitgutter
 if s:is_plugin_installed('vim-gitgutter')
   " Hunk移動
   autocmd BufEnter,BufNewFile,BufRead * nmap {            [c
@@ -12,10 +73,12 @@ if s:is_plugin_installed('vim-gitgutter')
   autocmd BufEnter,BufNewFile,BufRead *.diff nmap {       :call search('^ .*\n[+-]', 'b', 'W')<CR>
   autocmd BufEnter,BufNewFile,BufRead *.diff nmap }       :call search('^ .*\n[+-]', 'W')<CR>
 
+  " let g:gitgutter_highlight_lines = 1
+  " let g:gitgutter_highlight_linenrs = 1
+
   nnoremap <leader>ga :GitGutterStageHunk<CR>
 
   " default map: nmap <Leader>hs <Plug>GitGutterStageHunk
-  " default map: nmap <Leader>hu <Plug>GitGutterUndoHunk
   " default map: nmap <Leader>hp <Plug>GitGutterPreviewHunk
   " default map: nmap ]c         <Plug>GitGutterNextHunk
   " default map: nmap [c         <Plug>GitGutterPrevHunk
@@ -74,10 +137,10 @@ if s:is_plugin_installed('taglist.vim')
 
   " let tlist_markdown_settings = 'markdown;r:Title;s:Title2;t:Title3;'
   let tlist_markdown_settings = 'markdown;c:chapters;s:sections;u:subsections'
-     " c  chapters
-     "   s  sections
-     "       u  subsections
-     "           b  subsubsections
+  " c  chapters
+  " s  sections
+  " u  subsections
+  " b  subsubsections
 
   " nnoremap tl :Tlist<CR><C-w>l<CR><C-w>l<CR><C-w>l
   nnoremap tl :Tlist<CR>:TlistUpdate<CR>
@@ -97,9 +160,9 @@ if s:is_plugin_installed('tagbar')
   let g:tagbar_file_size_limit = 50000
   let g:tagbar_type_markdown = {
         \ 'kinds' : [
-          \ 'a:title',
-          \ ]
-          \ }
+        \ 'a:title',
+        \ ]
+        \ }
 
   " nnoremap tl :TagbarToggle<CR><C-w>=
 
@@ -174,41 +237,41 @@ endif
 if s:is_plugin_installed('vim-easy-align')
   let g:easy_align_delimiters = {
         \ '>': {
-          \     'pattern': '>>\|=>\|>'      
-          \   },
-          \ ',': {
-            \     'pattern':       ',',
-            \     'left_margin':   0,
-            \     'right_margin':  1,
-            \     'stick_to_left': 0,
-            \   },
-            \ '/': {
-              \     'pattern'         : '//\+\|/\*\|\*/',
-              \     'delimiter_align' : 'l',
-              \     'ignore_groups'   : ['!Comment']
-              \   },
-              \ ']': {
-                \     'pattern'       : '[[\]]',
-                \     'left_margin'   : 0,
-                \     'right_margin'  : 0,
-                \     'stick_to_left' : 0
-                \   },
-                \ ')': {
-                  \     'pattern'       : '[()]',
-                  \     'left_margin'   : 0,
-                  \     'right_margin'  : 0,
-                  \     'stick_to_left' : 0
-                  \   },
-                  \ 'd': {
-                    \     'pattern'      : ' \(\S\+\s*[;=]\)\@=',
-                    \     'left_margin'  : 0,
-                    \     'right_margin' : 0
-                    \   },
-                    \ ' ': {
-                      \     'pattern'         : ' ',
-                      \     'delimiter_align' : 'l',
-                      \   },
-                      \ }
+        \     'pattern': '>>\|=>\|>'      
+        \   },
+        \ ',': {
+        \     'pattern':       ',',
+        \     'left_margin':   0,
+        \     'right_margin':  1,
+        \     'stick_to_left': 0,
+        \   },
+        \ '/': {
+        \     'pattern'         : '//\+\|/\*\|\*/',
+        \     'delimiter_align' : 'l',
+        \     'ignore_groups'   : ['!Comment']
+        \   },
+        \ ']': {
+        \     'pattern'       : '[[\]]',
+        \     'left_margin'   : 0,
+        \     'right_margin'  : 0,
+        \     'stick_to_left' : 0
+        \   },
+        \ ')': {
+        \     'pattern'       : '[()]',
+        \     'left_margin'   : 0,
+        \     'right_margin'  : 0,
+        \     'stick_to_left' : 0
+        \   },
+        \ 'd': {
+        \     'pattern'      : ' \(\S\+\s*[;=]\)\@=',
+        \     'left_margin'  : 0,
+        \     'right_margin' : 0
+        \   },
+        \ ' ': {
+        \     'pattern'         : ' ',
+        \     'delimiter_align' : 'l',
+        \   },
+        \ }
 endif
 
 " ###
