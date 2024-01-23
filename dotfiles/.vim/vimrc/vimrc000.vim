@@ -6,6 +6,10 @@ set fileencodings=utf-8,euc-jp,sjis,cp932,iso-2022-jp
 set autoread
 set autowrite
 set updatetime=100 " 更新タイミング[ms]
+autocmd CursorHold * silent wall!
+
+set clipboard&
+set clipboard^=unnamedplus
 
 " gitのコミットメッセージが勝手に改行されないようにする
 autocmd BufEnter,BufNewFile,BufRead * set textwidth=0

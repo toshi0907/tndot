@@ -5,87 +5,154 @@ endfunction
 " ###
 " ### lewis6991/gitsigns.nvim
 " ###################################################################
-"
-" TODO : いつか使いたい
-"
-""" if has('nvim')
-"""   echo "gitsign"
-"""   packadd gitsigns.nvim
-""" endif
-"""
-""" lua << EOF
-""" require('gitsigns').setup {
-"""   signs = {
-"""     add          = { text = '│' },
-"""     change       = { text = '│' },
-"""     delete       = { text = '_' },
-"""     topdelete    = { text = '‾' },
-"""     changedelete = { text = '~' },
-"""     untracked    = { text = '┆' },
-"""   },
-"""   signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-"""   numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
-"""   linehl     = true, -- Toggle with `:Gitsigns toggle_linehl`
-"""   word_diff  = true, -- Toggle with `:Gitsigns toggle_word_diff`
-"""   watch_gitdir = {
-"""     follow_files = true
-"""   },
-"""   auto_attach = true,
-"""   attach_to_untracked = true,
-"""   current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
-"""   current_line_blame_opts = {
-"""     virt_text = true,
-"""     virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-"""     delay = 200,
-"""     ignore_whitespace = false,
-"""     virt_text_priority = 100,
-"""   },
-"""   current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
-"""   sign_priority = 6,
-"""   update_debounce = 100,
-"""   status_formatter = nil, -- Use default
-"""   max_file_length = 40000, -- Disable if file is longer than this (in lines)
-"""   preview_config = {
-"""     -- Options passed to nvim_open_win
-"""     border = 'single',
-"""     style = 'minimal',
-"""     relative = 'cursor',
-"""     row = 0,
-"""     col = 1
-"""   },
-"""   yadm = {
-"""     enable = false
-"""   },
-""" }
-""" EOF
-"""
-""" " lua require('gitsigns').setup()
+if has('nvim')
+  echo "gitsign"
+  packadd gitsigns.nvim
 
+  highlight  GitSignsAdd guifg=Black guibg=Green4
+  highlight  GitSignsChange guifg=Black guibg=Yellow3
+  highlight  DiffDelete guifg=Black guibg=Red3
+
+lua << EOF
+require('gitsigns').setup {
+  signs = {
+    add          = { text = '++' },
+    change       = { text = '**' },
+    delete       = { text = '--' },
+    topdelete    = { text = 'TD' },
+    changedelete = { text = 'CD' },
+    untracked    = { text = '/' },
+  },
+  signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+  numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
+  linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+  word_diff  = true, -- Toggle with `:Gitsigns toggle_word_diff`
+  watch_gitdir = {
+    follow_files = true
+  },
+  auto_attach = true,
+  attach_to_untracked = true,
+  current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+    delay = 200,
+    ignore_whitespace = false,
+    virt_text_priority = 100,
+  },
+  current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+  sign_priority = 6,
+  update_debounce = 100,
+  status_formatter = nil, -- Use default
+  max_file_length = 100000, -- Disable if file is longer than this (in lines)
+  preview_config = {
+    -- Options passed to nvim_open_win
+    border = 'single',
+    style = 'minimal',
+    relative = 'cursor',
+    row = 0,
+    col = 1
+  },
+  yadm = {
+    enable = false
+  },
+
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', function()
+      if vim.wo.diff then return ']c' end
+      vim.schedule(function() gs.next_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    map('n', '[c', function()
+      if vim.wo.diff then return '[c' end
+      vim.schedule(function() gs.prev_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    map('n', '}', function()
+      if vim.wo.diff then return '}' end
+      vim.schedule(function() gs.next_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+    map('n', '{', function()
+      if vim.wo.diff then return '{' end
+      vim.schedule(function() gs.prev_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+    map('v', '}', function()
+      if vim.wo.diff then return '}' end
+      vim.schedule(function() gs.next_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+    map('v', '{', function()
+      if vim.wo.diff then return '{' end
+      vim.schedule(function() gs.prev_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    -- Actions
+    --[[
+    map('n', '<leader>hs', gs.stage_hunk)
+    map('n', '<leader>hr', gs.reset_hunk)
+    map('v', '<leader>hs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('v', '<leader>hr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('n', '<leader>hS', gs.stage_buffer)
+    map('n', '<leader>hu', gs.undo_stage_hunk)
+    map('n', '<leader>hR', gs.reset_buffer)
+    map('n', '<leader>hp', gs.preview_hunk)
+    map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+    map('n', '<leader>tb', gs.toggle_current_line_blame)
+    map('n', '<leader>hd', gs.diffthis)
+    map('n', '<leader>hD', function() gs.diffthis('~') end)
+    map('n', '<leader>td', gs.toggle_deleted)
+    ]]
+    map('n', '<leader>ga', gs.stage_hunk)
+
+    -- Text object
+    -- map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>') -- default
+    map({'o', 'x'}, 'ic', ':<C-U>Gitsigns select_hunk<CR>')
+  end
+}
+require('gitsigns').setup()
+EOF
+endif
 
 " ###
 " ### airblade/vim-gitgutter
 " ###################################################################
-packadd vim-gitgutter
-if s:is_plugin_installed('vim-gitgutter')
-  " Hunk移動
-  autocmd BufEnter,BufNewFile,BufRead * nmap {            [c
-  autocmd BufEnter,BufNewFile,BufRead * nmap }            ]c
-  autocmd BufEnter,BufNewFile,BufRead *.diff nmap {       :call search('^ .*\n[+-]', 'b', 'W')<CR>
-  autocmd BufEnter,BufNewFile,BufRead *.diff nmap }       :call search('^ .*\n[+-]', 'W')<CR>
+if 0
+  packadd vim-gitgutter
+  if s:is_plugin_installed('vim-gitgutter')
+    " Hunk移動
+    autocmd BufEnter,BufNewFile,BufRead * nmap {            [c
+    autocmd BufEnter,BufNewFile,BufRead * nmap }            ]c
+    autocmd BufEnter,BufNewFile,BufRead *.diff nmap {       :call search('^ .*\n[+-]', 'b', 'W')<CR>
+    autocmd BufEnter,BufNewFile,BufRead *.diff nmap }       :call search('^ .*\n[+-]', 'W')<CR>
 
-  " let g:gitgutter_highlight_lines = 1
-  " let g:gitgutter_highlight_linenrs = 1
+    " let g:gitgutter_highlight_lines = 1
+    " let g:gitgutter_highlight_linenrs = 1
 
-  nnoremap <leader>ga :GitGutterStageHunk<CR>
+    nnoremap <leader>ga :GitGutterStageHunk<CR>
 
-  " default map: nmap <Leader>hs <Plug>GitGutterStageHunk
-  " default map: nmap <Leader>hp <Plug>GitGutterPreviewHunk
-  " default map: nmap ]c         <Plug>GitGutterNextHunk
-  " default map: nmap [c         <Plug>GitGutterPrevHunk
-  " default map: omap ic         <Plug>GitGutterTextObjectInnerPending
-  " default map: omap ac         <Plug>GitGutterTextObjectOuterPending
-  " default map: xmap ic         <Plug>GitGutterTextObjectInnerVisual
-  " default map: xmap ac         <Plug>GitGutterTextObjectOuterVisual
+    " default map: nmap <Leader>hs <Plug>GitGutterStageHunk
+    " default map: nmap <Leader>hp <Plug>GitGutterPreviewHunk
+    " default map: nmap ]c         <Plug>GitGutterNextHunk
+    " default map: nmap [c         <Plug>GitGutterPrevHunk
+    " default map: omap ic         <Plug>GitGutterTextObjectInnerPending
+    " default map: omap ac         <Plug>GitGutterTextObjectOuterPending
+    " default map: xmap ic         <Plug>GitGutterTextObjectInnerVisual
+    " default map: xmap ac         <Plug>GitGutterTextObjectOuterVisual
+  endif
 endif
 
 " ###
@@ -176,11 +243,15 @@ endif
 " ###
 " ### vim-scripts/vim-auto-save
 " ###################################################################
-if s:is_plugin_installed('vim-auto-save')
-  let g:auto_save = 1
-  let g:auto_save_in_insert_mode = 0
-  let g:auto_save_silent = 1
-endif
+"
+" 無効化中！！！
+"
+""" if s:is_plugin_installed('vim-auto-save')
+"""   let g:auto_save = 0
+"""   " let g:auto_save_in_insert_mode = 0
+"""   " let g:auto_save_silent = 1
+"""   " let g:auto_save_no_updatetime = 1
+""" endif
 
 " ###
 " ### thinca/vim-qfreplace
