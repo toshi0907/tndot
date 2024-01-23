@@ -218,6 +218,7 @@ alias COLOR_CHK='curl -s https://gist.githubusercontent.com/lifepillar/09a44b8cf
 #######################
 ### LoadSettings
 #######################
+source ~/.git-completion.bash
 source ~/.git-prompt.sh
 
 PS1='\[\e[0;32m\][\[\e[0;36m\]$(GitAccuntNow)\[\e[0;32m\] \w]\[\e[m\]\\$ '

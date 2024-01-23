@@ -6,7 +6,6 @@ endfunction
 " ### lewis6991/gitsigns.nvim
 " ###################################################################
 if has('nvim')
-  echo "gitsign"
   packadd gitsigns.nvim
 
   highlight  GitSignsAdd guifg=Black guibg=Green4
@@ -40,7 +39,7 @@ require('gitsigns').setup {
     ignore_whitespace = false,
     virt_text_priority = 100,
   },
-  current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+  current_line_blame_formatter = '<author>, <committer_time:%Y-%m-%d> - <summary>',
   sign_priority = 6,
   update_debounce = 100,
   status_formatter = nil, -- Use default
