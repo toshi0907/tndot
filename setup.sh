@@ -93,6 +93,19 @@ function CheckAndCdDir() {
   cd $1
 }
 
+function ManualInstallNeovim() {
+  if [ "${LINUX_DISTRIBUTION}" == "ubuntu" ]; then
+    DOWNLOAD_PATH=${HOME}/install/neovim
+    DOWNLOAD_VER=v0.9.0
+    CheckAndCdDir ${DOWNLOAD_PATH}
+    curl -LO https://github.com/neovim/neovim/releases/download/${DOWNLOAD_VER}/nvim.appimage
+    chmod +x nvim.appimage
+    ./nvim.appimage --appimage-extract
+    cd squashfs-root/usr
+    cp -r * ~/.local
+  fi
+}
+
 ######################################################
 
 echo
@@ -178,6 +191,9 @@ if [ "${LINUX_DISTRIBUTION}" == "ubuntu" ]; then
   InstallPackageByPackMng apt-get manpages-ja
 
   sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+
+  # manual install
+  ManualInstallNeovim
 
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
   nvm install --lts
