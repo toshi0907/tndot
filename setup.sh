@@ -230,7 +230,9 @@ echo "=== CREATE DIR ==="
 echo "=================="
 echo
 
+echo "~/.local/bin"
 CheckAndCdDir ~/.local/bin
+echo "~/.local/note"
 CheckAndCdDir ~/.local/note
 echo "Done!!!"
 
@@ -295,6 +297,7 @@ VimPluginInstall 'start' 'vim-scripts/aspnetcs'
 VimPluginInstall 'start' 'vim-jp/vimdoc-ja'
 
 # additional
+echo "additional : vim-jsbeautify"
 (
   if [ ! -e ~/.config/nvim/pack/tn/start/vim-jsbeautify/plugin/lib/v1.8.9.zip ]; then
     cd ~/.config/nvim/pack/tn/start/vim-jsbeautify/plugin/lib
