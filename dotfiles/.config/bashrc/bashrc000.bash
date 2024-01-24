@@ -214,6 +214,7 @@ alias qqq_shutdown='sudo shutdown -h now'
 alias qqq_tmux_reload='tmux source-file ~/.tmux.conf'
 
 alias COLOR_CHK='curl -s https://gist.githubusercontent.com/lifepillar/09a44b8cf0f9397465614e622979107f/raw/24-bit-color.sh | bash'
+alias CLIPBOARD_CHK='watch xsel -bo'
 
 #######################
 ### LoadSettings

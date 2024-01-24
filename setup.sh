@@ -187,6 +187,7 @@ if [ "${LINUX_DISTRIBUTION}" == "ubuntu" ]; then
   InstallPackageByPackMng apt-get exuberant-ctags
   InstallPackageByPackMng apt-get hugo
   InstallPackageByPackMng apt-get tree
+  InstallPackageByPackMng apt-get xsel
 
   InstallPackageByPackMng apt-get manpages-ja
 
@@ -237,6 +238,7 @@ CommandCheck hugo
 CommandCheck tree
 CommandCheck diff-highlight
 CommandCheck wget
+CommandCheck xsel
 
 ######################################################
 

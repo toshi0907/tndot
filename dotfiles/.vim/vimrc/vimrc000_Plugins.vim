@@ -8,9 +8,15 @@ endfunction
 if has('nvim')
   packadd gitsigns.nvim
 
-  highlight  GitSignsAdd guifg=Black guibg=Green4
-  highlight  GitSignsChange guifg=Black guibg=Yellow3
-  highlight  DiffDelete guifg=Black guibg=Red3
+  highlight  GitSignsAdd                  guifg=Black guibg=Green4
+  highlight  GitSignsAddInline            guifg=White guibg=#006000
+  highlight  GitSignsAddVirtLnInline      guifg=Black guibg=Green4
+  highlight  GitSignsChange               guifg=Black guibg=Yellow4
+  highlight  GitSignsChangeInline         guifg=White guibg=#606000
+  highlight  GitSignsChangeVirtLnInline   guifg=Black guibg=Yellow4
+  highlight  DiffDelete                   guifg=Black guibg=Red4
+  highlight  GitSignsDeleteInline         guifg=White guibg=#600000
+  highlight  GitSignsDeleteVirtLnInline   guifg=Black guibg=Red4
 
 lua << EOF
 require('gitsigns').setup {
