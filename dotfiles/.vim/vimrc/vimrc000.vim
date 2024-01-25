@@ -82,7 +82,8 @@ set statusline+=\
 " set statusline+=%{'['.(&fenc!=''?&fenc:&enc).']'} " エンコード
 set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}
 set statusline+=%y " ファイルタイプ
-set statusline+=[%1l/%L:%c] " 行数
+set statusline+=[L=%1l/%L(%p%%),%c] " 行数
+" set statusline+=[%{Tlist_Get_Tagname_By_Line()}]
 " set statusline+=%{fugitive#statusline()}
 
 " ###
@@ -219,6 +220,9 @@ nnoremap x "_x
 nnoremap <leader>y viw"zyviwy
 nnoremap <leader>p viw"0P
 " nnoremap <leader>p viwP
+
+" 1行削除
+nnoremap <C-d> 0D
 
 " ウインドウ移動
 "nnoremap <leader>k <C-w>k
