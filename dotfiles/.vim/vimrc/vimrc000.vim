@@ -100,6 +100,13 @@ if has('syntax')
     autocmd VimEnter,WinEnter * call matchadd("ZenkakuSpace", '　')
   augroup END
 
+  """ 末尾スペースをハイライト表示
+  augroup OnlySpace
+    autocmd!
+    autocmd ColorScheme       * highlight OnlySpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+    autocmd VimEnter,WinEnter * call matchadd("OnlySpace", ' $')
+  augroup END
+
   """ For Markdown
   augroup MarkdownSyn
     autocmd!
