@@ -8,6 +8,8 @@ set autowrite
 set updatetime=100 " 更新タイミング[ms]
 autocmd CursorHold * silent wall!
 
+set mouse=a
+
 set clipboard&
 set clipboard^=unnamedplus
 
@@ -122,6 +124,13 @@ if has('syntax')
     autocmd VimEnter,WinEnter * call matchadd("MarkdownCheckboxPending", '^- [-\] ')
     " 見出し
     autocmd ColorScheme       * highlight markdownH1 guifg=Black guibg=Grey82
+  augroup END
+
+  """ TODO表示
+  augroup TodoDisp
+    autocmd!
+    autocmd ColorScheme       * highlight TodoDisp cterm=reverse ctermfg=Yellow gui=reverse guifg=Yellow
+    autocmd VimEnter,WinEnter * call matchadd("TodoDisp", 'TODO:.*$')
   augroup END
 endif
 
