@@ -95,6 +95,17 @@ set statusline+=[L=%1l/%L(%p%%),%c] " 行数
 syntax on  " シンタックスハイライト
 
 if has('syntax')
+  augroup TestSyn
+    autocmd!
+    " for switch-case
+    autocmd FileType * highlight TestSyn guifg=White guibg=Red
+    autocmd FileType * call matchadd("TestSyn", '^ABCDEFG')
+
+    " for end statement
+    autocmd FileType cpp syntax keyword cppEndStatement return break
+    autocmd FileType cpp highlight  cppEndStatement guifg=White     guibg=Green4
+  augroup END
+
   """ 全角スペースをハイライト表示
   augroup ZenkakuSpace
     autocmd!
@@ -105,32 +116,101 @@ if has('syntax')
   """ 末尾スペースをハイライト表示
   augroup OnlySpace
     autocmd!
-    autocmd ColorScheme       * highlight OnlySpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+    autocmd ColorScheme       * highlight OnlySpace gui=reverse guifg=Aqua
     autocmd VimEnter,WinEnter * call matchadd("OnlySpace", ' $')
+  augroup END
+
+  """ For Cpp
+  augroup CppSyn
+    autocmd!
+    " for switch-case
+    autocmd FileType cpp highlight CppCase guifg=White guibg=NavyBlue
+    autocmd FileType cpp call matchadd("CppCase", '^ *case .*$')
+    autocmd FileType cpp call matchadd("CppCase", '^ *default:.*$')
+
+    " for end statement
+    autocmd FileType cpp syntax keyword cppEndStatement return break
+    autocmd FileType cpp highlight  cppEndStatement guifg=White     guibg=Green4
   augroup END
 
   """ For Markdown
   augroup MarkdownSyn
     autocmd!
     """ チェックボックス
-    " 未対応
-    autocmd ColorScheme       * highlight MarkdownCheckboxNone guifg=Black guibg=Yellow3
-    autocmd VimEnter,WinEnter * call matchadd("MarkdownCheckboxNone",    '^- [ \] ')
-    " 対応済
-    autocmd ColorScheme       * highlight MarkdownCheckboxChecked guifg=Black guibg=Green4
-    autocmd VimEnter,WinEnter * call matchadd("MarkdownCheckboxChecked", '^- [x\] ')
-    " 保留・対応不要
-    autocmd ColorScheme       * highlight MarkdownCheckboxPending guifg=Black guibg=Gray
-    autocmd VimEnter,WinEnter * call matchadd("MarkdownCheckboxPending", '^- [-\] ')
+    " 未対応 | - [ ]
+    autocmd FileType markdown highlight MarkdownCheckboxNone guifg=Black guibg=Yellow3
+    autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^- [ \] ')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^  - [ \] ')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^    - [ \] ')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^      - [ \] ')
+    " 対応済 | - [x]
+    autocmd FileType markdown highlight MarkdownCheckboxChecked guifg=Black guibg=Green4
+    autocmd FileType markdown call matchadd("MarkdownCheckboxChecked", '^- [x\] ')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxChecked", '^  - [x\] ')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxChecked", '^    - [x\] ')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxChecked", '^      - [x\] ')
+    " 保留・対応不要 | - [-]
+    autocmd FileType markdown highlight MarkdownCheckboxPending guifg=Black guibg=Gray
+    autocmd FileType markdown call matchadd("MarkdownCheckboxPending", '^- [-\] ')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxPending", '^  - [-\] ')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxPending", '^    - [-\] ')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxPending", '^      - [-\] ')
     " 見出し
-    autocmd ColorScheme       * highlight markdownH1 guifg=Black guibg=Grey82
+    autocmd FileType markdown highlight Markdown_H1 guifg=White guibg=#0000FF
+    autocmd FileType markdown call matchadd("Markdown_H1", '^# .*')
+    autocmd FileType markdown highlight Markdown_H2 guifg=White guibg=#0000AA
+    autocmd FileType markdown call matchadd("Markdown_H2", '^## .*')
+    autocmd FileType markdown highlight Markdown_H3 guifg=White guibg=#000066
+    autocmd FileType markdown call matchadd("Markdown_H3", '^### .*')
+    autocmd FileType markdown highlight Markdown_H4 guifg=White guibg=#00AAAA
+    autocmd FileType markdown call matchadd("Markdown_H4", '^#### .*')
+    autocmd FileType markdown highlight Markdown_H5 guifg=White guibg=#008888
+    autocmd FileType markdown call matchadd("Markdown_H5", '^##### .*')
+    autocmd FileType markdown highlight Markdown_H6 guifg=White guibg=#005555
+    autocmd FileType markdown call matchadd("Markdown_H6", '^###### .*')
   augroup END
 
-  """ TODO表示
-  augroup TodoDisp
+  """ TODO etc表示
+  augroup TodoDispSyn
     autocmd!
-    autocmd ColorScheme       * highlight TodoDisp cterm=reverse ctermfg=Yellow gui=reverse guifg=Yellow
-    autocmd VimEnter,WinEnter * call matchadd("TodoDisp", 'TODO:.*$')
+    " TODO
+    autocmd ColorScheme       * highlight TodoDisp  gui=reverse guifg=Yellow
+    autocmd VimEnter,WinEnter * call matchadd("TodoDisp", 'TODO.*$')
+    " FIXME
+    autocmd ColorScheme       * highlight FixmeDisp gui=reverse guifg=Orange
+    autocmd VimEnter,WinEnter * call matchadd("FixmeDisp", 'FIXME.*$')
+    " NOTE
+    autocmd ColorScheme       * highlight NoteDisp  gui=reverse guifg=SkyBlue
+    autocmd VimEnter,WinEnter * call matchadd("NoteDisp", 'NOTE.*$')
+  augroup END
+
+  """ Indent
+  augroup IndentSyn
+    autocmd!
+    autocmd ColorScheme       * highlight Indent012 gui=reverse guifg=#300000
+    autocmd ColorScheme       * highlight Indent011 gui=reverse guifg=#003000
+    autocmd ColorScheme       * highlight Indent010 gui=reverse guifg=#000030
+    autocmd ColorScheme       * highlight Indent009 gui=reverse guifg=#003030
+    autocmd ColorScheme       * highlight Indent008 gui=reverse guifg=#300030
+    autocmd ColorScheme       * highlight Indent007 gui=reverse guifg=#303000
+    autocmd ColorScheme       * highlight Indent006 gui=reverse guifg=#300000
+    autocmd ColorScheme       * highlight Indent005 gui=reverse guifg=#003000
+    autocmd ColorScheme       * highlight Indent004 gui=reverse guifg=#000030
+    autocmd ColorScheme       * highlight Indent003 gui=reverse guifg=#003030
+    autocmd ColorScheme       * highlight Indent002 gui=reverse guifg=#300030
+    autocmd ColorScheme       * highlight Indent001 gui=reverse guifg=#303000
+    autocmd VimEnter,WinEnter * call matchadd("Indent012", '^                        ')
+    autocmd VimEnter,WinEnter * call matchadd("Indent011", '^                      ')
+    autocmd VimEnter,WinEnter * call matchadd("Indent010", '^                    ')
+    autocmd VimEnter,WinEnter * call matchadd("Indent009", '^                  ')
+    autocmd VimEnter,WinEnter * call matchadd("Indent008", '^                ')
+    autocmd VimEnter,WinEnter * call matchadd("Indent007", '^              ')
+    autocmd VimEnter,WinEnter * call matchadd("Indent006", '^            ')
+    autocmd VimEnter,WinEnter * call matchadd("Indent005", '^          ')
+    autocmd VimEnter,WinEnter * call matchadd("Indent004", '^        ')
+    autocmd VimEnter,WinEnter * call matchadd("Indent003", '^      ')
+    autocmd VimEnter,WinEnter * call matchadd("Indent002", '^    ')
+    autocmd VimEnter,WinEnter * call matchadd("Indent001", '^  ')
   augroup END
 endif
 
@@ -176,7 +256,7 @@ set t_Co=256
 let mapleader = "\<Space>"
 
 " vimrcの更新
-nnoremap <F1> :source ~/.vimrc<CR>
+nnoremap <F1> :source ~/.vimrc<CR>:edit<CR>
 
 " jjでエスケープ
 inoremap <silent> jj <ESC>
