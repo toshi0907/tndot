@@ -144,6 +144,34 @@ function bashrc_pts_kill() {
   done
 }
 
+### tar
+
+function bashrc_tar_open() {
+  local lTarFileName=$1
+  echo ${lTarFileName} | grep "tar.gz"
+  if [ $? -eq 0 ]; then
+    echo "tar xvzf ${lTarFileName}"
+    tar xvzf ${lTarFileName}
+    return
+  fi
+
+  echo ${lTarFileName} | grep "tar.bz2"
+  if [ $? -eq 0 ]; then
+    echo "tar xvjf ${lTarFileName}"
+    tar xvjf ${lTarFileName}
+    return
+  fi
+
+  echo ${lTarFileName} | grep "tar.xz"
+  if [ $? -eq 0 ]; then
+    echo "tar xvJf ${lTarFileName}"
+    tar xvJf ${lTarFileName}
+    return
+  fi
+
+  echo "Error: ${lTarFileName} is unknown file type..."
+}
+
 #######################
 ### Enviroment
 #######################
@@ -177,6 +205,7 @@ alias watch="watch -c " # watchでaliasが使用できない対応
 alias grep='grep -i --color=auto'
 alias vim='nvim'
 alias vimdiff='nvim -d'
+alias untar='bashrc_tar_open'
 
 # git
 alias gs='git status -s'
