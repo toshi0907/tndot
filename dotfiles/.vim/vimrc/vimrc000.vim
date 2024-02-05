@@ -175,13 +175,13 @@ if has('syntax')
     autocmd!
     " TODO
     autocmd ColorScheme       * highlight TodoDisp  gui=reverse guifg=Yellow
-    autocmd VimEnter,WinEnter * call matchadd("TodoDisp", 'TODO.*$')
+    autocmd VimEnter,WinEnter * call matchadd("TodoDisp", 'TODO')
     " FIXME
     autocmd ColorScheme       * highlight FixmeDisp gui=reverse guifg=Orange
-    autocmd VimEnter,WinEnter * call matchadd("FixmeDisp", 'FIXME.*$')
+    autocmd VimEnter,WinEnter * call matchadd("FixmeDisp", 'FIXME')
     " NOTE
     autocmd ColorScheme       * highlight NoteDisp  gui=reverse guifg=SkyBlue
-    autocmd VimEnter,WinEnter * call matchadd("NoteDisp", 'NOTE.*$')
+    autocmd VimEnter,WinEnter * call matchadd("NoteDisp", 'NOTE')
   augroup END
 
   """ Indent
