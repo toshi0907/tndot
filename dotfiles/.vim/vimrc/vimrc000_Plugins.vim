@@ -311,6 +311,11 @@ endif
 " ### junegunn/vim-easy-align
 " ###################################################################
 if s:is_plugin_installed('vim-easy-align')
+
+  vnoremap <leader>ea, :EasyAlign */,/<l0r1<CR>
+  vnoremap <leader>ea= :EasyAlign */=/l1r1<CR>
+  vnoremap <leader>ea& :EasyAlign */&/l1r1<CR>
+
   let g:easy_align_delimiters = {
         \ '>': {
         \     'pattern': '>>\|=>\|>'      
@@ -319,7 +324,7 @@ if s:is_plugin_installed('vim-easy-align')
         \     'pattern':       ',',
         \     'left_margin':   0,
         \     'right_margin':  1,
-        \     'stick_to_left': 0,
+        \     'stick_to_left': 1,
         \   },
         \ '/': {
         \     'pattern'         : '//\+\|/\*\|\*/',
