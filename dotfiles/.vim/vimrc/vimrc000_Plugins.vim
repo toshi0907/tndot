@@ -315,6 +315,8 @@ if s:is_plugin_installed('vim-easy-align')
   vnoremap <leader>ea, :EasyAlign */,/<l0r1<CR>
   vnoremap <leader>ea= :EasyAlign */=/l1r1<CR>
   vnoremap <leader>ea& :EasyAlign */&/l1r1<CR>
+  vnoremap <leader>ea<space> :EasyAlign */ /l0r0ig[]<CR>
+  vnoremap <leader>ea# :EasyAlign */#/l1r1ig[]<CR>
 
   let g:easy_align_delimiters = {
         \ '>': {
