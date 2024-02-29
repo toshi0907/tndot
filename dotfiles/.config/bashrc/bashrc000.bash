@@ -137,7 +137,7 @@ function NkfOverWriteWithSymLinkCheck_UTF() {
 
 function bashrc_pts_kill() {
   local i=
-  for ((i = 0; i < 10; i++)); do
+  for ((i = 0; i < 99; i++)); do
     if [ "/dev/pts/${i}" != "$(tty)" ]; then
       pkill -9 -t pts/${i}
     fi

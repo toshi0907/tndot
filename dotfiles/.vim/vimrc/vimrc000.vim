@@ -139,22 +139,22 @@ if has('syntax')
     """ チェックボックス
     " 未対応 | - [ ]
     autocmd FileType markdown highlight MarkdownCheckboxNone guifg=Black guibg=Yellow3
-    autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^- [ \] ')
-    autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^  - [ \] ')
-    autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^    - [ \] ')
-    autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^      - [ \] ')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^- [ \]')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^  - [ \]')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^    - [ \]')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^      - [ \]')
     " 対応済 | - [x]
     autocmd FileType markdown highlight MarkdownCheckboxChecked guifg=Black guibg=Green4
-    autocmd FileType markdown call matchadd("MarkdownCheckboxChecked", '^- [x\] ')
-    autocmd FileType markdown call matchadd("MarkdownCheckboxChecked", '^  - [x\] ')
-    autocmd FileType markdown call matchadd("MarkdownCheckboxChecked", '^    - [x\] ')
-    autocmd FileType markdown call matchadd("MarkdownCheckboxChecked", '^      - [x\] ')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxChecked", '^- [x\]')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxChecked", '^  - [x\]')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxChecked", '^    - [x\]')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxChecked", '^      - [x\]')
     " 保留・対応不要 | - [-]
     autocmd FileType markdown highlight MarkdownCheckboxPending guifg=Black guibg=Gray
-    autocmd FileType markdown call matchadd("MarkdownCheckboxPending", '^- [-\] ')
-    autocmd FileType markdown call matchadd("MarkdownCheckboxPending", '^  - [-\] ')
-    autocmd FileType markdown call matchadd("MarkdownCheckboxPending", '^    - [-\] ')
-    autocmd FileType markdown call matchadd("MarkdownCheckboxPending", '^      - [-\] ')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxPending", '^- [-\]')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxPending", '^  - [-\]')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxPending", '^    - [-\]')
+    autocmd FileType markdown call matchadd("MarkdownCheckboxPending", '^      - [-\]')
     " 見出し
     autocmd FileType markdown highlight Markdown_H1 guifg=White guibg=#0000FF
     autocmd FileType markdown call matchadd("Markdown_H1", '^# .*')
@@ -187,18 +187,18 @@ if has('syntax')
   """ Indent
   augroup IndentSyn
     autocmd!
-    autocmd ColorScheme       * highlight Indent012 gui=reverse guifg=#300000
-    autocmd ColorScheme       * highlight Indent011 gui=reverse guifg=#003000
-    autocmd ColorScheme       * highlight Indent010 gui=reverse guifg=#000030
-    autocmd ColorScheme       * highlight Indent009 gui=reverse guifg=#003030
-    autocmd ColorScheme       * highlight Indent008 gui=reverse guifg=#300030
-    autocmd ColorScheme       * highlight Indent007 gui=reverse guifg=#303000
-    autocmd ColorScheme       * highlight Indent006 gui=reverse guifg=#300000
-    autocmd ColorScheme       * highlight Indent005 gui=reverse guifg=#003000
-    autocmd ColorScheme       * highlight Indent004 gui=reverse guifg=#000030
-    autocmd ColorScheme       * highlight Indent003 gui=reverse guifg=#003030
-    autocmd ColorScheme       * highlight Indent002 gui=reverse guifg=#300030
-    autocmd ColorScheme       * highlight Indent001 gui=reverse guifg=#303000
+    autocmd ColorScheme       * highlight Indent012 gui=reverse guifg=#400000
+    autocmd ColorScheme       * highlight Indent011 gui=reverse guifg=#004000
+    autocmd ColorScheme       * highlight Indent010 gui=reverse guifg=#000040
+    autocmd ColorScheme       * highlight Indent009 gui=reverse guifg=#004040
+    autocmd ColorScheme       * highlight Indent008 gui=reverse guifg=#400040
+    autocmd ColorScheme       * highlight Indent007 gui=reverse guifg=#404000
+    autocmd ColorScheme       * highlight Indent006 gui=reverse guifg=#400000
+    autocmd ColorScheme       * highlight Indent005 gui=reverse guifg=#004000
+    autocmd ColorScheme       * highlight Indent004 gui=reverse guifg=#000040
+    autocmd ColorScheme       * highlight Indent003 gui=reverse guifg=#004040
+    autocmd ColorScheme       * highlight Indent002 gui=reverse guifg=#400040
+    autocmd ColorScheme       * highlight Indent001 gui=reverse guifg=#404000
     autocmd VimEnter,WinEnter * call matchadd("Indent012", '^                        ')
     autocmd VimEnter,WinEnter * call matchadd("Indent011", '^                      ')
     autocmd VimEnter,WinEnter * call matchadd("Indent010", '^                    ')
