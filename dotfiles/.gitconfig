@@ -74,4 +74,4 @@
   diff = diff-highlight | less
 
 [sequence]
-  editor = nvim
+	editor = nvim

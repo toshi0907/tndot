@@ -227,7 +227,7 @@ if s:is_plugin_installed('tagbar')
   let g:tagbar_sort           = 0
   let g:tagbar_compact        = 1
   let g:tagbar_show_data_type = 1
-  let g:tagbar_width          = 30
+  let g:tagbar_width          = 50
   let g:tagbar_foldlevel      = 0
   let g:tagbar_file_size_limit = 50000
   let g:tagbar_type_markdown = {

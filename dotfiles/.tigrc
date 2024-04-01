@@ -81,7 +81,7 @@ bind main    T      :toggle commit-title-refs
 bind generic C      !git commit
 bind main    C      !git commit
 
-# F で fixup commit
+# F or Ctrl-f で fixup commit
 bind generic F             !?@git commit --fixup=%(commit)
 bind main    F             !?@git commit --fixup=%(commit)
 bind blame   F             !?@git commit --fixup=%(ref)
@@ -95,6 +95,10 @@ bind main    R      !?git rebase -i %(commit) --keep-empty --ignore-date
 # bind generic R      !?git rebase -i %(commit) --keep-empty
 # bind main    R      !?git rebase -i %(commit) --keep-empty
 
+# Ctrl-r で 選択中のコミットをrevert
+bind generic <Ctrl-r>      !?@git revert %(commit)
+bind main    <Ctrl-r>      !?@git revert %(commit)
+
 # O で 選択中のコミットをoriginへプッシュ
 bind generic O      !git hashpush origin %(commit)
 bind main    O      !git hashpush origin %(commit)
@@ -106,10 +110,6 @@ bind main    L      !git hashpush local %(commit) %(branch)
 # P で 選択中のコミットをcherry-pick
 bind generic P      !git cherry-pick %(commit)
 bind main    P      !git cherry-pick %(commit)
-
-# Ctrl-r で 選択中のコミットをrevert
-bind generic <Ctrl-r>      !?@git revert %(commit)
-bind main    <Ctrl-r>      !?@git revert %(commit)
 
 # A で git commit --amend
 bind generic A      !?git commit --amend --allow-empty
