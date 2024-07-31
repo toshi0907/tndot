@@ -30,6 +30,7 @@
   emptycommit = commit --allow-empty
   curbranch = rev-parse --abbrev-ref HEAD # current branch name. If is not in branch print "HEAD", maybe...
   # breakcommit = commit -m "====================" --allow-empty
+  namediff = diff --name-only
 
 [core]
   editor = nvim

@@ -138,7 +138,7 @@ if has('syntax')
     autocmd!
     """ チェックボックス
     " 未対応 | - [ ]
-    autocmd FileType markdown highlight MarkdownCheckboxNone guifg=Black guibg=Yellow3
+    autocmd FileType markdown highlight MarkdownCheckboxNone guifg=Black guibg=Red
     autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^- [ \]')
     autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^  - [ \]')
     autocmd FileType markdown call matchadd("MarkdownCheckboxNone",    '^    - [ \]')
@@ -399,6 +399,10 @@ nnoremap <C-]> g<C-]>
 " nnoremap <C-E> :Explore<CR>
 " nnoremap <C-E> :30Lexplore ~/.config<CR> " 左に分割して開く:幅30px
 nnoremap <C-E> :30Lexplore<CR> " 左に分割して開く:幅30px
+
+" Folding
+nnoremap <leader>mf v%zf
+nnoremap <leader>df zd
 
 function! MyFuncRunSh()
   " 現在編集中のシェルスクリプトファイルを実行

@@ -1,8 +1,8 @@
 # マウスを有効化
-set mouse = yes
+set mouse = true
 
 set mouse-scroll          = 1   # Number of lines to scroll via the mouse
-set mouse-wheel-cursor    = yes    # Prefer moving the cursor to scrolling the view?
+set mouse-wheel-cursor    = true    # Prefer moving the cursor to scrolling the view?
 
 # main view の左端にコミットIDを表示する
 # set main-view = id date author commit-title:graph=true,refs=true
