@@ -183,6 +183,7 @@ if [ "${LINUX_DISTRIBUTION}" == "ubuntu" ]; then
   InstallPackageByPackMng apt-get python3-autopep8
   InstallPackageByPackMng apt-get docker
   InstallPackageByPackMng apt-get docker-compose
+  InstallPackageByPackMng apt     docker-compose-v2
   InstallPackageByPackMng apt-get net-tools
   InstallPackageByPackMng apt-get exuberant-ctags
   InstallPackageByPackMng apt-get hugo
@@ -197,7 +198,7 @@ if [ "${LINUX_DISTRIBUTION}" == "ubuntu" ]; then
   ManualInstallNeovim
 
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-  nvm install --lts
+  nivm install --lts
 else
   echo "Skip install"
 fi
