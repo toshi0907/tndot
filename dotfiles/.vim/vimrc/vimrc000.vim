@@ -180,7 +180,7 @@ if has('syntax')
     autocmd ColorScheme       * highlight FixmeDisp gui=reverse guifg=Orange
     autocmd VimEnter,WinEnter * call matchadd("FixmeDisp", 'FIXME')
     " NOTE
-    autocmd ColorScheme       * highlight NoteDisp  gui=reverse guifg=SkyBlue
+    autocmd ColorScheme       * highlight NoteDisp  gui=reverse guifg=White guibg=Black
     autocmd VimEnter,WinEnter * call matchadd("NoteDisp", 'NOTE')
   augroup END
 
