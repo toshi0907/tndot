@@ -1,8 +1,8 @@
 # tndot
 
-dot files for me
+私の dotfiles
 
-## How to setup
+## セットアップ方法
 
 ```bash
 git clone https://github.com/toshi0907/tndot
@@ -10,29 +10,29 @@ cd tndot
 ./setup.sh
 ```
 
-## For Additional Setting
+## 追加設定について
 
 ### bash
 
-Please add files (or symlinks) of bashrc to "~/.config/bashrc/".
-Filename should be "bashrc***".
+bashrc のファイル（またはシンボリックリンク）を "~/.config/bashrc/" に追加してください。
+ファイル名は "bashrc***" の形式にしてください。
 
 ### vim
 
-Please add files (or symlinks) of vimrc to "~/.vim/vimrc/".
-Filename should be "vimrc***".
+vimrc のファイル（またはシンボリックリンク）を "~/.vim/vimrc/" に追加してください。
+ファイル名は "vimrc***" の形式にしてください。
 
 ### gitconfig
 
-Please add settings "~/.gitconfig.local".
+設定を "~/.gitconfig.local" に追加してください。
 
 ### tig
 
-Please add settings "~/.tigrc_mysettings".
+設定を "~/.tigrc_mysettings" に追加してください。
 
-## For Note Files
+## ノートファイルについて
 
-Please add files (or symlinks) of note to "~/.local/note/".
+ノートのファイル（またはシンボリックリンク）を "~/.local/note/" に追加してください。
 
 <!-- end of file -->
 
