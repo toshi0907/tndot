@@ -196,7 +196,7 @@ if s:is_plugin_installed('taglist.vim')
   let Tlist_Exit_OnlyWindow         = 1 " タグリストだけが表示されているときに自動的にVimを終了するか
   let Tlist_Use_Right_Window        = 1 " タグ画面を右に表示するか
   let Tlist_Compact_Format          = 1 "デフォルト表示かコンパクト表示か
-  let Tlist_WinWidth                = 40 "画面を左右に分割した場合の、タグ画面の初期幅
+  let Tlist_WinWidth                = 999 "画面を左右に分割した場合の、タグ画面の初期幅
   let Tlist_GainFocus_On_ToggleOpen = 0 "開いたときにTlistへ移動
   let Tlist_Auto_Highlight_Tag      = 1
   let Tlist_Close_On_Select         = 0
@@ -227,7 +227,7 @@ if s:is_plugin_installed('tagbar')
   let g:tagbar_sort           = 0
   let g:tagbar_compact        = 1
   let g:tagbar_show_data_type = 1
-  let g:tagbar_width          = 50
+  let g:tagbar_width          = 999
   let g:tagbar_foldlevel      = 0
   let g:tagbar_file_size_limit = 50000
   let g:tagbar_type_markdown = {
